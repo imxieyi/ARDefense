@@ -21,6 +21,8 @@ public class PlaneManager : MonoBehaviour {
             UnityARUtility.InitializePlanePrefab(planePrefab);
             gameBase = GameObject.Find("Game Base");
             gameBase.SetActive(false);
+			var cameraParent = GameObject.Find("CameraParent");
+			cameraParent.transform.position = new Vector3(0, 0, 0);
 		} else {
 			Destroy(cameraManager.gameObject);
 			Destroy(mainCamera.gameObject.GetComponent<UnityARVideo>());
