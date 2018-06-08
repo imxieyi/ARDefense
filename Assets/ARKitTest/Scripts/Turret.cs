@@ -21,15 +21,10 @@ public class Turret : MonoBehaviour {
 
 	public GameObject bulletPrefab;
 	public Transform firePoint;
-    Transform spawnBase;
-
-    float baseScale;
 
 	// Use this for initialization
 	void Start () {
-		spawnBase = GameObject.Find("Game Base").transform;
-		baseScale = spawnBase.localScale.x;
-		range *= baseScale;
+		range *= GameBase.scale;
 		InvokeRepeating("UpdateTarget", 0f, 0.2f);
 	}
 
@@ -77,7 +72,7 @@ public class Turret : MonoBehaviour {
 	}
 
 	void Shoot() {
-		var bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation, spawnBase);
+		var bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation, GameBase.trans);
 		Bullet bullet = bulletGO.GetComponent<Bullet>();
 
 		if (bullet != null) {

@@ -9,14 +9,10 @@ public class Bullet : MonoBehaviour {
 	public float speed = 70f;
 	public float explosionRadius = 0f;
 	public GameObject impactEffect;
-    Transform spawnBase;
-    float baseScale;
 
 	public void SetTarget(Transform target) {
 		this.target = target;
-        spawnBase = GameObject.Find("Game Base").transform;
-		baseScale = spawnBase.localScale.x;
-        explosionRadius *= baseScale;
+        explosionRadius *= GameBase.scale;
 	}
 
 	// Update is called once per frame
@@ -27,7 +23,7 @@ public class Bullet : MonoBehaviour {
 		}
 
 		Vector3 dir = target.position - transform.position;
-		float distanceThisFrame = speed * Time.deltaTime * baseScale;
+		float distanceThisFrame = speed * Time.deltaTime * GameBase.scale;
 
 		if (dir.magnitude <= distanceThisFrame) {
 			HitTarget();
@@ -39,8 +35,8 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void HitTarget() {
-		var effect = Instantiate(impactEffect, transform.position, transform.rotation, spawnBase);
-		Destroy(effect, 2f);
+		var effect = Instantiate(impactEffect, transform.position, transform.rotation, GameBase.trans);
+		Destroy(effect, 5f);
 		if (explosionRadius > 0f) {
 			Explode();
 		} else {

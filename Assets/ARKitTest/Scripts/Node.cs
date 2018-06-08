@@ -9,17 +9,14 @@ public class Node : MonoBehaviour {
 
 	Color defaultColor;
 	Renderer rend;
-    Transform spawnBase;
-    float baseScale;
-
-	GameObject turret;
+    
+    [Header("Optional")]
+	public GameObject turret;
 
 	// Use this for initialization
 	void Start () {
 		rend = GetComponent<MeshRenderer>();
 		defaultColor = rend.material.color;
-        spawnBase = GameObject.Find("Game Base").transform;
-        baseScale = spawnBase.localScale.x;
 	}
 
 	void OnTouch() {
@@ -39,11 +36,16 @@ public class Node : MonoBehaviour {
 		rend.material.color = hightlightColor;
 	}
 
-	public void BuildTurret(GameObject prefab) {
+	public Vector3 GetBuildPosition() {
+		return transform.position + positionOffset * GameBase.scale;
+	}
+
+	public bool BuildTurret(GameObject prefab) {
         if (turret) {
-			return;
+			return false;
         }
-		turret = Instantiate(prefab, transform.position + positionOffset * baseScale, transform.rotation, spawnBase);
+		turret = Instantiate(prefab, GetBuildPosition(), transform.rotation, GameBase.trans);
+		return true;
 	}
 
 	public void Cancel() {

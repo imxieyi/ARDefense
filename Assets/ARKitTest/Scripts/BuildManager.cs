@@ -14,12 +14,19 @@ public class BuildManager : MonoBehaviour {
 		instance = this;
 	}
 
-	public GameObject standardTurretPrefab;
-    public GameObject missileLauncherPrefab;
+	public GameObject buildEffect;
     
-	public void BuildTurret(GameObject prefab) {
-		if (TouchManager.selectedNode) {
-			TouchManager.selectedNode.GetComponent<Node>().BuildTurret(prefab);
+	public void BuildTurret(TurretBlueprint blueprint) {
+		if (TouchManager.selectedNode && PlayerStats.Money >= blueprint.cost) {
+			var node = TouchManager.selectedNode.GetComponent<Node>();
+			if (node.BuildTurret(blueprint.prefab)) {
+				PlayerStats.Money -= blueprint.cost;
+
+				GameObject effect = Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity, GameBase.trans);
+				Destroy(effect, 5f);
+
+				Debug.Log("Money: " + PlayerStats.Money);
+			}
 		}
 	}
 
