@@ -22,7 +22,8 @@ public class PlaneManager : MonoBehaviour {
             gameBase = GameObject.Find("Game Base");
             gameBase.SetActive(false);
 			var cameraParent = GameObject.Find("CameraParent");
-			cameraParent.transform.position = new Vector3(0, 0, 0);
+			cameraParent.transform.position = new Vector3();
+			cameraParent.transform.rotation = new Quaternion();
 		} else {
 			Destroy(cameraManager.gameObject);
 			Destroy(mainCamera.gameObject.GetComponent<UnityARVideo>());

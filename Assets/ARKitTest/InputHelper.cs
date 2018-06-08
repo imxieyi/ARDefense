@@ -4,7 +4,7 @@ using System.Reflection;
 
 // Source: https://romanluks.eu/blog/how-to-simulate-touch-with-mouse-in-unity/
 public class InputHelper : MonoBehaviour {
-    private static TouchCreator lastFakeTouch;
+    static TouchCreator lastFakeTouch;
 
     public static List<Touch> GetTouches() {
         List<Touch> touches = new List<Touch>();

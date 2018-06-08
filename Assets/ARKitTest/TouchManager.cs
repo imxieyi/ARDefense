@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TouchManager : MonoBehaviour {
 
 	public Camera mainCamera;
+    
+	public static GameObject selectedNode;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +16,9 @@ public class TouchManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (EventSystem.current.IsPointerOverGameObject()) {
+			return;
+		}
 		List<Touch> touches = InputHelper.GetTouches();
 		if (touches.Count > 0 && touches[0].phase == TouchPhase.Ended) {
 			Ray rayCast = mainCamera.ScreenPointToRay(touches[0].position);
@@ -20,6 +26,13 @@ public class TouchManager : MonoBehaviour {
 			if (Physics.Raycast(rayCast, out raycastHit)) {
 				Debug.LogFormat("Touch at {0}", raycastHit.collider.name);
 				raycastHit.collider.SendMessage("OnTouch");
+				if (selectedNode && !raycastHit.collider.name.Contains("Node")) {
+					selectedNode.GetComponent<Node>().Cancel();
+				}
+			} else {
+				if (selectedNode) {
+					selectedNode.GetComponent<Node>().Cancel();
+				}
 			}
 		}
 	}
