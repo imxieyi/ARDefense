@@ -1287,7 +1287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &169631016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216535871}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce437cef046e841aabd6070890e79d41, type: 3}
   m_Name: 
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216535871}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58ecea7a196242dd879c814ac05084c, type: 3}
   m_Name: 
@@ -4591,7 +4591,6 @@ MonoBehaviour:
   laserBeamer:
     prefab: {fileID: 1571573040011282, guid: 03aaa9f5c3c204d5ca7e63b0e69d0b69, type: 2}
     cost: 250
-  instance: {fileID: 0}
   sellItem: {fileID: 2030232923}
   upgradeItem: {fileID: 1685081164}
   laserBeamerItem: {fileID: 499978164}
@@ -9465,7 +9464,7 @@ MonoBehaviour:
     type: 2}
   mainCamera: {fileID: 216535875}
   cameraManager: {fileID: 169631016}
-  enableARKit: 0
+  enableARKit: 1
   maxRayDistance: 30
   collisionLayer:
     serializedVersion: 2

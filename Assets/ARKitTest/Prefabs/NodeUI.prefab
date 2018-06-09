@@ -333,8 +333,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 3af2cb8e7715148d388d225252088fac, type: 3}
-    m_FontSize: 5
+    m_Font: {fileID: 12800000, guid: 4b1b3a656cce94faab8f2ac52d85fa5d, type: 3}
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -426,8 +426,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 3af2cb8e7715148d388d225252088fac, type: 3}
-    m_FontSize: 5
+    m_Font: {fileID: 12800000, guid: 4b1b3a656cce94faab8f2ac52d85fa5d, type: 3}
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -650,8 +650,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 3af2cb8e7715148d388d225252088fac, type: 3}
-    m_FontSize: 5
+    m_Font: {fileID: 12800000, guid: 4b1b3a656cce94faab8f2ac52d85fa5d, type: 3}
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -846,8 +846,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 3af2cb8e7715148d388d225252088fac, type: 3}
-    m_FontSize: 5
+    m_Font: {fileID: 12800000, guid: 4b1b3a656cce94faab8f2ac52d85fa5d, type: 3}
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1140,8 +1140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.491}
-  m_SizeDelta: {x: 34.483, y: 29.339}
+  m_AnchoredPosition: {x: 0, y: 2.794}
+  m_SizeDelta: {x: 65.179, y: 55.395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224267376204531676
 RectTransform:
