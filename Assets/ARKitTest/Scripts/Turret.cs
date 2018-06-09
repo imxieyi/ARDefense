@@ -10,6 +10,7 @@ public class Turret : MonoBehaviour {
     [Header("General")]
 
     public float range = 15f;
+    public TurretType type;
 
     [Header("Use Bullets (default)")]
 
@@ -34,6 +35,11 @@ public class Turret : MonoBehaviour {
     public float rotateSpeed = 20f;
 	public Transform firePoint;
 
+    [HideInInspector]
+    public NodeUI nodeUI;
+
+    int damage;
+
 	// Use this for initialization
 	void Start () {
         if (useLaser) {
@@ -42,6 +48,7 @@ public class Turret : MonoBehaviour {
             impactEffect.Stop();
             impactLight.enabled = false;
         }
+        damage = bulletPrefab.GetComponent<Bullet>().damage;
 		range *= GameBase.scale;
 		InvokeRepeating("UpdateTarget", 0f, 0.2f);
 	}
@@ -96,7 +103,23 @@ public class Turret : MonoBehaviour {
             }
             fireCountdown -= Time.deltaTime;
         }
+
+        if (nodeUI) {
+            UpdateNodeUI();
+        }
 	}
+
+    void UpdateNodeUI() {
+        nodeUI.levelText.text = "1";
+        nodeUI.rangeText.text = ((int)range).ToString();
+        if (useLaser) {
+            nodeUI.damageText.text = damageOverTime + "/s";
+            nodeUI.speedText.text = "N/A";
+        } else {
+            nodeUI.damageText.text = damage.ToString();
+            nodeUI.speedText.text = string.Format("{0:0.00}/s", fireRate);
+        }
+    }
 
     void LockOnTarget() {
         Vector3 dir = target.position - transform.position;

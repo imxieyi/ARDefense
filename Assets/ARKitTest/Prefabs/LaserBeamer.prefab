@@ -388,10 +388,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 20
+  type: 2
   bulletPrefab: {fileID: 1991159271887234, guid: 8894dfdc5a03b4b5c9e2e6bf79822e25,
     type: 2}
   fireRate: 1
   useLaser: 1
+  damageOverTime: 30
+  slowPercent: 0.5
   lineRenderer: {fileID: 120704790742262978}
   impactEffect: {fileID: 198599584112432574}
   impactLight: {fileID: 108540360334519090}
@@ -399,6 +402,7 @@ MonoBehaviour:
   rotateBase: {fileID: 4172548603712262}
   rotateSpeed: 20
   firePoint: {fileID: 4917739329184364}
+  nodeUI: {fileID: 0}
 --- !u!120 &120704790742262978
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -12,14 +12,23 @@ public class WaveSpawner : MonoBehaviour {
 	public Text waveCountdownText;
 
 	public float timeBetweenWaves = 5f;
-	private float countdown = 2f;
-	private int waveIndex = 0;
+	float countdown = 2f;
+	int waveIndex = 0;
+
+    bool spawning = false;
 
 	void Update() {
 		if (countdown <= 0f) {
+            spawning = true;
+            waveCountdownText.text = "WAVE " + (waveIndex + 1);
 			StartCoroutine(SpawnWave());
 			countdown = timeBetweenWaves;
 		}
+
+        if (spawning) {
+            return;
+        }
+
 		countdown -= Time.deltaTime;
 
 		countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
@@ -29,10 +38,12 @@ public class WaveSpawner : MonoBehaviour {
 
 	IEnumerator SpawnWave() {
 		waveIndex++;
+        PlayerStats.Waves++;
 		for (int i = 0; i < waveIndex; i++) {
 			Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation, spawnBase);
 			yield return new WaitForSeconds(0.5f);
 		}
+        spawning = false;
 	}
 
 }

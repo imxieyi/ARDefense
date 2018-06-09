@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
     bool gameEnded = false;
 
+    public GameObject gameOverUI;
+
 	// Update is called once per frame
 	void Update () {
         if (gameEnded) {
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour {
 
     void EndGame() {
         gameEnded = true;
+        gameOverUI.SetActive(true);
     }
 
 }

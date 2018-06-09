@@ -7,6 +7,8 @@ public class Node : MonoBehaviour {
 	public Color hightlightColor;
 	public Vector3 positionOffset;
 
+    public GameObject nodeUI;
+
 	Color defaultColor;
 	Renderer rend;
     
@@ -22,7 +24,7 @@ public class Node : MonoBehaviour {
 	void OnTouch() {
 		Debug.Log("Touched at " + name);
 		if (TouchManager.selectedNode == gameObject) {
-			Cancel();
+			//Cancel();
 			return;
 		}
 		Highlight();
@@ -30,10 +32,17 @@ public class Node : MonoBehaviour {
 
 	void Highlight() {
 		if (TouchManager.selectedNode) {
-			TouchManager.selectedNode.GetComponent<Node>().Cancel();
+            TouchManager.selectedNode.GetComponent<Node>().Cancel();
 		}
 		TouchManager.selectedNode = gameObject;
 		rend.material.color = hightlightColor;
+        if (turret) {
+            GameObject nodeUIObj = Instantiate(nodeUI, turret.transform.position + new Vector3(0, 2.5f * GameBase.scale), Quaternion.identity, GameBase.trans);
+            turret.GetComponent<Turret>().nodeUI = nodeUIObj.GetComponent<NodeUI>();
+            Shop.instance.ShowActionButtons();
+        } else {
+            Shop.instance.ShowBuildButtons();
+        }
 	}
 
 	public Vector3 GetBuildPosition() {
@@ -44,13 +53,19 @@ public class Node : MonoBehaviour {
         if (turret) {
 			return false;
         }
-		turret = Instantiate(prefab, GetBuildPosition(), transform.rotation, GameBase.trans);
+        Cancel();
+        turret = Instantiate(prefab, GetBuildPosition(), transform.rotation, GameBase.trans);
 		return true;
 	}
 
 	public void Cancel() {
 		TouchManager.selectedNode = null;
 		rend.material.color = defaultColor;
+        if (turret) {
+            turret.GetComponent<Turret>().nodeUI.GetComponent<Animator>().SetBool("UIOut", true);
+            Destroy(turret.GetComponent<Turret>().nodeUI.gameObject, 1f);
+        }
+        Shop.instance.DeactiveButtons();
 	}
 
 }
