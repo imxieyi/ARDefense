@@ -39,6 +39,7 @@ public class Turret : MonoBehaviour {
     public NodeUI nodeUI;
 
     int damage;
+    float realRange;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +50,7 @@ public class Turret : MonoBehaviour {
             impactLight.enabled = false;
         }
         damage = bulletPrefab.GetComponent<Bullet>().damage;
+        realRange = range;
 		range *= GameBase.scale;
 		InvokeRepeating("UpdateTarget", 0f, 0.2f);
 	}
@@ -75,7 +77,12 @@ public class Turret : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    void Update () {
+
+        if (nodeUI) {
+            UpdateNodeUI();
+        }
+
 		if (target == null) {
             if (useLaser) {
                 if (lineRenderer.enabled) {
@@ -103,15 +110,11 @@ public class Turret : MonoBehaviour {
             }
             fireCountdown -= Time.deltaTime;
         }
-
-        if (nodeUI) {
-            UpdateNodeUI();
-        }
 	}
 
     void UpdateNodeUI() {
         nodeUI.levelText.text = "1";
-        nodeUI.rangeText.text = ((int)range).ToString();
+        nodeUI.rangeText.text = ((int)realRange).ToString();
         if (useLaser) {
             nodeUI.damageText.text = damageOverTime + "/s";
             nodeUI.speedText.text = "N/A";

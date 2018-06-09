@@ -38,8 +38,9 @@ public class Node : MonoBehaviour {
 		rend.material.color = hightlightColor;
         if (turret) {
             GameObject nodeUIObj = Instantiate(nodeUI, turret.transform.position + new Vector3(0, 2.5f * GameBase.scale), Quaternion.identity, GameBase.trans);
-            turret.GetComponent<Turret>().nodeUI = nodeUIObj.GetComponent<NodeUI>();
-            Shop.instance.ShowActionButtons();
+            var t = turret.GetComponent<Turret>();
+            t.nodeUI = nodeUIObj.GetComponent<NodeUI>();
+            Shop.instance.ShowActionButtons(t.type);
         } else {
             Shop.instance.ShowBuildButtons();
         }

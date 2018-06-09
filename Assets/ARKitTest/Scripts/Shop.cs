@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour {
     
@@ -53,12 +54,26 @@ public class Shop : MonoBehaviour {
         standardTurretItem.SetActive(true);
     }
 
-    public void ShowActionButtons() {
+    public void ShowActionButtons(TurretType type) {
         sellItem.SetActive(true);
         upgradeItem.SetActive(true);
         laserBeamerItem.SetActive(false);
         missileLauncherItem.SetActive(false);
         standardTurretItem.SetActive(false);
+        switch (type) {
+            case TurretType.STANDARD:
+                sellItem.GetComponent<Image>().sprite = standardTurretSprite;
+                upgradeItem.GetComponent<Image>().sprite = standardTurretSprite;
+                break;
+            case TurretType.MISSILE:
+                sellItem.GetComponent<Image>().sprite = missileLauncherSprite;
+                upgradeItem.GetComponent<Image>().sprite = missileLauncherSprite;
+                break;
+            case TurretType.LASER:
+                sellItem.GetComponent<Image>().sprite = laserBeamerSprite;
+                upgradeItem.GetComponent<Image>().sprite = laserBeamerSprite;
+                break;
+        }
     }
 
     public void PurchaseStandardTurret() {

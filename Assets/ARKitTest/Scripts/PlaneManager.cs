@@ -15,15 +15,20 @@ public class PlaneManager : MonoBehaviour {
     
     // Use this for initialization
     void Start() {
-		m_HitTransform = new GameObject().transform;
-		if (enableARKit) {
-            unityARAnchorManager = new UnityARAnchorManager();
-            UnityARUtility.InitializePlanePrefab(planePrefab);
+        if (enableARKit) {
             gameBase = GameObject.Find("Game Base");
             gameBase.SetActive(false);
-			var cameraParent = GameObject.Find("CameraParent");
-			cameraParent.transform.position = new Vector3();
-			cameraParent.transform.rotation = new Quaternion();
+            var cameraParent = GameObject.Find("CameraParent");
+            cameraParent.transform.position = new Vector3();
+            cameraParent.transform.rotation = new Quaternion();
+            if (m_HitTransform) {
+                Debug.Log("Plane already exists");
+                PlacePlane();
+            } else {
+                m_HitTransform = new GameObject().transform;
+                unityARAnchorManager = new UnityARAnchorManager();
+                UnityARUtility.InitializePlanePrefab(planePrefab);
+            }
 		} else {
 			Destroy(cameraManager.gameObject);
 			Destroy(mainCamera.gameObject.GetComponent<UnityARVideo>());
@@ -32,18 +37,28 @@ public class PlaneManager : MonoBehaviour {
 		}
 	}
 
-    Transform m_HitTransform;
+    static Transform m_HitTransform;
+    static Transform oldCameraPos;
     public float maxRayDistance = 30.0f;
     public LayerMask collisionLayer = 1 << 10;  //ARKitPlane layer
 
 	void PlacePlane() {
 		gameBase.SetActive(true);
-		gameBase.transform.position = m_HitTransform.position;
-		gameBase.transform.rotation = m_HitTransform.rotation;
+        gameBase.transform.position = m_HitTransform.position;
+        if (oldCameraPos == null) {
+            oldCameraPos = mainCamera.transform;
+        }
+        Vector3 dir = oldCameraPos.position - m_HitTransform.position;
+        dir.y = 0;
+        gameBase.transform.rotation = Quaternion.LookRotation(-dir);
 		planePlaced = true;
-		// Turn off plane detection
-		GameObject.Find("Camera Manager").GetComponent<UnityARCameraManager>().planeDetectionOFF();
-		unityARAnchorManager.Destroy();
+        // Turn off plane detection
+        GameObject.Find("Camera Manager").GetComponent<UnityARCameraManager>().planeDetectionOFF();
+        if (unityARAnchorManager != null) {
+            unityARAnchorManager.Destroy();
+        }
+        DontDestroyOnLoad(m_HitTransform);
+        DontDestroyOnLoad(oldCameraPos);
 	}
 
     bool HitTestWithResultType(ARPoint point, ARHitTestResultType resultTypes) {
@@ -117,7 +132,7 @@ public class PlaneManager : MonoBehaviour {
     }
 
     void OnDestroy() {
-		if (enableARKit) {
+		if (enableARKit && unityARAnchorManager != null) {
             unityARAnchorManager.Destroy();
 		}
     }
