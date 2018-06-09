@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-	public float speed = 10f;
-    
-	Transform target;
-	Transform map;
-	int waypointIndex = 0;
+    public float startSpeed = 10f;
+    [HideInInspector]
+	public float speed;
 
-	void Start() {
-        map = GameObject.Find("Map").transform;
-		target = Waypoints.points[0];
-		target.TransformPoint(map.position);
-	}
+    public float health = 100;
 
-	void Update() {
-		Vector3 dir = target.position - transform.position;
-		transform.Translate(dir.normalized * speed * Time.deltaTime * GameBase.scale, Space.World);
+    public int reward = 20;
 
-		if (Vector3.Distance(transform.position, target.position) <= 0.4f * GameBase.scale) {
-			GetNextWaypoint();
-		}
-	}
+    public GameObject deathEffect;
 
-	void GetNextWaypoint() {
-		if (waypointIndex >= Waypoints.points.Length - 1) {
-			Destroy(gameObject);
-			return;
-		}
+    void Start() {
+        speed = startSpeed;
+    }
 
-		waypointIndex++;
-		target = Waypoints.points[waypointIndex];
-        target.TransformPoint(map.position);
-	}
+    public void TakeDamage(float amount) {
+        health -= amount;
+        if (health <= 0) {
+            Die();
+        }
+    }
+
+    public void Slow(float percent) {
+        speed = startSpeed * (1f - percent);
+    }
+
+    void Die() {
+        PlayerStats.Money += reward;
+
+        GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity, GameBase.trans);
+        Destroy(effect, 5);
+
+        Destroy(gameObject);
+    }
 
 }

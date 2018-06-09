@@ -5,12 +5,26 @@ using UnityEngine;
 public class Turret : MonoBehaviour {
 
     Transform target;
+    Enemy targetEnemy;
 
-    [Header("Attributes")]
-	
-	public float range = 15f;   
+    [Header("General")]
+
+    public float range = 15f;
+
+    [Header("Use Bullets (default)")]
+
+    public GameObject bulletPrefab;
     public float fireRate = 1f;
-    private float fireCountdown = 0f;
+    float fireCountdown = 0f;
+
+    [Header("Use Laser")]
+    
+    public bool useLaser = false;
+    public int damageOverTime = 30;
+    public float slowPercent = 0.5f;
+    public LineRenderer lineRenderer;
+    public ParticleSystem impactEffect;
+    public Light impactLight;
 
 	[Header("Unity Setup Fields")]
 
@@ -18,12 +32,16 @@ public class Turret : MonoBehaviour {
 
 	public Transform rotateBase;
     public float rotateSpeed = 20f;
-
-	public GameObject bulletPrefab;
 	public Transform firePoint;
 
 	// Use this for initialization
 	void Start () {
+        if (useLaser) {
+            lineRenderer.useWorldSpace = true;
+            lineRenderer.enabled = false;
+            impactEffect.Stop();
+            impactLight.enabled = false;
+        }
 		range *= GameBase.scale;
 		InvokeRepeating("UpdateTarget", 0f, 0.2f);
 	}
@@ -42,34 +60,68 @@ public class Turret : MonoBehaviour {
 
 		if (nearestEnemy != null && shortestDistance <= range) {
 			target = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Enemy>();
 		} else {
 			target = null;
+            targetEnemy = null;
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (target == null) {
-			fireCountdown -= Time.deltaTime;
-			if (fireCountdown < 0) {
-				fireCountdown = 0;
-			}
+            if (useLaser) {
+                if (lineRenderer.enabled) {
+                    lineRenderer.enabled = false;
+                    impactEffect.Stop();
+                    impactLight.enabled = false;
+                }
+            } else {
+                fireCountdown -= Time.deltaTime;
+                if (fireCountdown < 0) {
+                    fireCountdown = 0;
+                }
+            }
 			return;
 		}
-        
-        // Target lock on
-		Vector3 dir = target.position - transform.position;
-		Quaternion lookRotation = Quaternion.LookRotation(dir);
-		Vector3 rotation = Quaternion.Lerp(rotateBase.rotation, lookRotation, Time.deltaTime * rotateSpeed).eulerAngles;
-		rotateBase.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-		if (fireCountdown <= 0) {
-			Shoot();
-			fireCountdown = 1f / fireRate;
-		}
+        LockOnTarget();
 
-		fireCountdown -= Time.deltaTime;
+        if (useLaser) {
+            Laser();
+        } else {
+            if (fireCountdown <= 0) {
+                Shoot();
+                fireCountdown = 1f / fireRate;
+            }
+            fireCountdown -= Time.deltaTime;
+        }
 	}
+
+    void LockOnTarget() {
+        Vector3 dir = target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(rotateBase.rotation, lookRotation, Time.deltaTime * rotateSpeed).eulerAngles;
+        rotateBase.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    void Laser() {
+        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowPercent);
+
+        if (!lineRenderer.enabled) {
+            lineRenderer.enabled = true;
+            impactEffect.Play();
+            impactLight.enabled = true;
+        }
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, target.position);
+
+        Vector3 dir = firePoint.position - target.position;
+
+        impactEffect.transform.position = target.position + dir.normalized * GameBase.scale * 1.5f;
+        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+    }
 
 	void Shoot() {
 		var bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation, GameBase.trans);
