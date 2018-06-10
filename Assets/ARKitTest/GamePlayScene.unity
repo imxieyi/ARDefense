@@ -1287,7 +1287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &169631016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216535871}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce437cef046e841aabd6070890e79d41, type: 3}
   m_Name: 
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216535871}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58ecea7a196242dd879c814ac05084c, type: 3}
   m_Name: 
@@ -4594,13 +4594,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardTurret:
     prefab: {fileID: 1733805230436928, guid: b090c51be410a4653b520499d04358ee, type: 2}
-    cost: 100
+    levels:
+    - cost: 100
+      damage: 50
+      speed: 1
+      range: 15
+    - cost: 150
+      damage: 60
+      speed: 1.2
+      range: 20
+    - cost: 200
+      damage: 70
+      speed: 1.4
+      range: 25
   missileLauncher:
     prefab: {fileID: 1254546923794166, guid: 6da0426f6dea34eea858cb7fe7747778, type: 2}
-    cost: 150
+    levels:
+    - cost: 250
+      damage: 50
+      speed: 0.25
+      range: 30
   laserBeamer:
     prefab: {fileID: 1571573040011282, guid: 03aaa9f5c3c204d5ca7e63b0e69d0b69, type: 2}
-    cost: 250
+    levels:
+    - cost: 150
+      damage: 30
+      speed: 0
+      range: 20
   sellItem: {fileID: 2030232923}
   upgradeItem: {fileID: 1685081164}
   laserBeamerItem: {fileID: 499978164}
@@ -9484,7 +9504,7 @@ MonoBehaviour:
     type: 2}
   mainCamera: {fileID: 216535875}
   cameraManager: {fileID: 169631016}
-  enableARKit: 1
+  enableARKit: 0
   maxRayDistance: 30
   collisionLayer:
     serializedVersion: 2
@@ -10554,8 +10574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cad83781f814a6594a2286c1a7732a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildEffect: {fileID: 1794485266898984, guid: c3e1c7c3c84f94617af09f1958909657,
-    type: 2}
 --- !u!114 &1297361704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14890,6 +14908,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 540566507}
     m_Modifications:
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224842095277523786, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -14997,6 +15020,31 @@ Prefab:
         type: 2}
       propertyPath: m_PreferredHeight
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 540566511}
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 114418253886675656, guid: 50cbd1a93c0d54748a4b3bb537dffdaf,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50cbd1a93c0d54748a4b3bb537dffdaf, type: 2}

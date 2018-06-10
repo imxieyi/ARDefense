@@ -8,11 +8,12 @@ public class Node : MonoBehaviour {
 	public Vector3 positionOffset;
 
     public GameObject nodeUI;
+    public GameObject buildEffect;
 
 	Color defaultColor;
 	Renderer rend;
     
-    [Header("Optional")]
+    [HideInInspector]
 	public GameObject turret;
 
 	// Use this for initialization
@@ -40,7 +41,7 @@ public class Node : MonoBehaviour {
             GameObject nodeUIObj = Instantiate(nodeUI, turret.transform.position + new Vector3(0, 2.5f * GameBase.scale), Quaternion.identity, GameBase.trans);
             var t = turret.GetComponent<Turret>();
             t.nodeUI = nodeUIObj.GetComponent<NodeUI>();
-            Shop.instance.ShowActionButtons(t.type);
+            Shop.instance.ShowActionButtons(t.type, t);
         } else {
             Shop.instance.ShowBuildButtons();
         }
@@ -48,16 +49,48 @@ public class Node : MonoBehaviour {
 
 	public Vector3 GetBuildPosition() {
 		return transform.position + positionOffset * GameBase.scale;
+    }
+
+    public void BuildTurret(TurretBlueprint blueprint) {
+        if (turret) {
+            return;
+        }
+        if (PlayerStats.Money >= blueprint.cost) {
+            var node = TouchManager.selectedNode.GetComponent<Node>();
+            Cancel();
+            turret = Instantiate(blueprint.prefab, GetBuildPosition(), transform.rotation, GameBase.trans);
+            //Debug.Log("init");
+            var t = turret.GetComponent<Turret>();
+            t.blueprint = blueprint;
+            t.UpgradeTurret();
+            PlayerStats.Money -= blueprint.cost;
+
+            GameObject effect = Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity, GameBase.trans);
+            Destroy(effect, 5f);
+        }
 	}
 
-	public bool BuildTurret(GameObject prefab) {
-        if (turret) {
-			return false;
+    public void UpgradeTurret() {
+        if (!turret) {
+            return;
         }
-        Cancel();
-        turret = Instantiate(prefab, GetBuildPosition(), transform.rotation, GameBase.trans);
-		return true;
-	}
+        var t = turret.GetComponent<Turret>();
+        int cost = t.GetUpgradeCost();
+        if (cost == 0) {
+            // Max level
+            return;
+        }
+        if (PlayerStats.Money >= cost) {
+            var node = TouchManager.selectedNode.GetComponent<Node>();
+            PlayerStats.Money -= cost;
+            t.UpgradeTurret();
+
+            GameObject effect = Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity, GameBase.trans);
+            Destroy(effect, 5f);
+
+            Shop.instance.ShowActionButtons(t.type, t);
+        }
+    }
 
 	public void Cancel() {
 		TouchManager.selectedNode = null;

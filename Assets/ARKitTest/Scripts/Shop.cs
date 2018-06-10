@@ -36,6 +36,9 @@ public class Shop : MonoBehaviour {
 
     void Start() {
 		buildManager = BuildManager.instance;
+        standardTurretItem.GetComponentInChildren<Text>().text = "$" + standardTurret.cost;
+        missileLauncherItem.GetComponentInChildren<Text>().text = "$" + missileLauncher.cost;
+        laserBeamerItem.GetComponentInChildren<Text>().text = "$" + laserBeamer.cost;
 	}
 
     public void DeactiveButtons() {
@@ -54,9 +57,15 @@ public class Shop : MonoBehaviour {
         standardTurretItem.SetActive(true);
     }
 
-    public void ShowActionButtons(TurretType type) {
+    public void ShowActionButtons(TurretType type, Turret turret) {
         sellItem.SetActive(true);
+        var cost = turret.GetUpgradeCost();
         upgradeItem.SetActive(true);
+        if (cost > 0) {
+            upgradeItem.GetComponentInChildren<Text>().text = "$" + cost;
+        } else {
+            upgradeItem.GetComponentInChildren<Text>().text = "Max";
+        }
         laserBeamerItem.SetActive(false);
         missileLauncherItem.SetActive(false);
         standardTurretItem.SetActive(false);
@@ -86,6 +95,10 @@ public class Shop : MonoBehaviour {
 
     public void PurchaseLaserBeamer() {
         buildManager.BuildTurret(laserBeamer);
+    }
+
+    public void UpgradeTurret() {
+        buildManager.UpgradeTurret();
     }
 
 }

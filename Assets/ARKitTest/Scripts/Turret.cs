@@ -9,18 +9,21 @@ public class Turret : MonoBehaviour {
 
     [Header("General")]
 
+    [HideInInspector]
     public float range = 15f;
     public TurretType type;
 
     [Header("Use Bullets (default)")]
 
     public GameObject bulletPrefab;
+    [HideInInspector]
     public float fireRate = 1f;
     float fireCountdown = 0f;
 
     [Header("Use Laser")]
     
     public bool useLaser = false;
+    [HideInInspector]
     public int damageOverTime = 30;
     public float slowPercent = 0.5f;
     public LineRenderer lineRenderer;
@@ -38,20 +41,22 @@ public class Turret : MonoBehaviour {
     [HideInInspector]
     public NodeUI nodeUI;
 
+    [HideInInspector]
+    public TurretBlueprint blueprint;
+
     int damage;
     float realRange;
+    int level = 0;
 
 	// Use this for initialization
 	void Start () {
+        //Debug.Log("start");
         if (useLaser) {
             lineRenderer.useWorldSpace = true;
             lineRenderer.enabled = false;
             impactEffect.Stop();
             impactLight.enabled = false;
         }
-        damage = bulletPrefab.GetComponent<Bullet>().damage;
-        realRange = range;
-		range *= GameBase.scale;
 		InvokeRepeating("UpdateTarget", 0f, 0.2f);
 	}
 
@@ -113,7 +118,7 @@ public class Turret : MonoBehaviour {
 	}
 
     void UpdateNodeUI() {
-        nodeUI.levelText.text = "1";
+        nodeUI.levelText.text = "Lv." + level;
         nodeUI.rangeText.text = ((int)realRange).ToString();
         if (useLaser) {
             nodeUI.damageText.text = damageOverTime + "/s";
@@ -121,6 +126,28 @@ public class Turret : MonoBehaviour {
         } else {
             nodeUI.damageText.text = damage.ToString();
             nodeUI.speedText.text = string.Format("{0:0.00}/s", fireRate);
+        }
+    }
+
+    public int GetUpgradeCost() {
+        if (level >= blueprint.levels.Length) {
+            return 0;
+        }
+        return blueprint.levels[level].cost;
+    }
+
+    public void UpgradeTurret() {
+        var l = blueprint.levels[level];
+        level++;
+        realRange = l.range;
+        range = realRange * GameBase.scale;
+        if (useLaser) {
+            damageOverTime = l.damage;
+        } else {
+            var bullet = bulletPrefab.GetComponent<Bullet>();
+            bullet.damage = l.damage;
+            damage = l.damage;
+            fireRate = l.speed;
         }
     }
 
