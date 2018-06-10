@@ -4,14 +4,15 @@ using UnityEngine;
 using UnityEngine.XR.iOS;
 
 public class PlaneManager : MonoBehaviour {
-	
+
     public GameObject planePrefab;
     private UnityARAnchorManager unityARAnchorManager;
     private bool planePlaced = false;
 	private GameObject gameBase;
 	public Camera mainCamera;
 	public UnityARCameraManager cameraManager;
-	public bool enableARKit;
+    public bool enableARKit;
+    public Transform coinBox;
     
     // Use this for initialization
     void Start() {
@@ -31,6 +32,7 @@ public class PlaneManager : MonoBehaviour {
                 UnityARUtility.InitializePlanePrefab(planePrefab);
             }
 		} else {
+            coinBox.gameObject.SetActive(true);
 			Destroy(cameraManager.gameObject);
 			Destroy(mainCamera.gameObject.GetComponent<UnityARVideo>());
 			Destroy(mainCamera.gameObject.GetComponent<UnityARCameraNearFar>());
@@ -39,27 +41,32 @@ public class PlaneManager : MonoBehaviour {
 	}
 
     static Transform m_HitTransform;
-    static Transform oldCameraPos;
+    static Transform oldCameraTrans;
     public float maxRayDistance = 30.0f;
     public LayerMask collisionLayer = 1 << 10;  //ARKitPlane layer
 
 	void PlacePlane() {
 		gameBase.SetActive(true);
         gameBase.transform.position = m_HitTransform.position;
-        if (oldCameraPos == null) {
-            oldCameraPos = mainCamera.transform;
+        if (oldCameraTrans == null) {
+            oldCameraTrans = mainCamera.transform;
         }
-        Vector3 dir = oldCameraPos.position - m_HitTransform.position;
+        Vector3 dir = oldCameraTrans.position - m_HitTransform.position;
         dir.y = 0;
         gameBase.transform.rotation = Quaternion.LookRotation(-dir);
 		planePlaced = true;
+        // Place Coin Box
+        dir = m_HitTransform.position - oldCameraTrans.position;
+        dir.z = -1.5f;
+        coinBox.position = dir + oldCameraTrans.position;
+        coinBox.gameObject.SetActive(true);
         // Turn off plane detection
         GameObject.Find("Camera Manager").GetComponent<UnityARCameraManager>().planeDetectionOFF();
         if (unityARAnchorManager != null) {
             unityARAnchorManager.Destroy();
         }
         DontDestroyOnLoad(m_HitTransform);
-        DontDestroyOnLoad(oldCameraPos);
+        DontDestroyOnLoad(oldCameraTrans);
 	}
 
     bool HitTestWithResultType(ARPoint point, ARHitTestResultType resultTypes) {
