@@ -13,6 +13,7 @@ public class PlaneManager : MonoBehaviour {
 	public UnityARCameraManager cameraManager;
     public bool enableARKit;
     public Transform coinBox;
+    public GameObject pauseButton;
     
     // Use this for initialization
     void Start() {
@@ -46,6 +47,7 @@ public class PlaneManager : MonoBehaviour {
     public LayerMask collisionLayer = 1 << 10;  //ARKitPlane layer
 
 	void PlacePlane() {
+        pauseButton.SetActive(true);
 		gameBase.SetActive(true);
         gameBase.transform.position = m_HitTransform.position;
         if (oldCameraTrans == null) {
