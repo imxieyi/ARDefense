@@ -5134,7 +5134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &516626568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7879,7 +7879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 905377187}
   exitTip: {fileID: 112160087}
-  overlay: {fileID: 373700576}
+  button: {fileID: 516626569}
   mainUI: {fileID: 1755290995}
 --- !u!1001 &833403667
 Prefab:

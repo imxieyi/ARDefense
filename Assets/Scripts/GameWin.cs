@@ -7,7 +7,7 @@ public class GameWin : MonoBehaviour {
 
     public Canvas canvas;
     public Text exitTip;
-    public Canvas overlay;
+    public Button button;
     public Canvas mainUI;
 
     void Start() {
@@ -17,7 +17,7 @@ public class GameWin : MonoBehaviour {
 
     void AllowExit() {
         exitTip.gameObject.SetActive(true);
-        overlay.gameObject.SetActive(true);
+        button.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
