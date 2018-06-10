@@ -7,6 +7,7 @@ public class TurretLevel {
     public int damage;
     public float speed;
     public int range;
+    public float scale;
 }
 
 [System.Serializable]

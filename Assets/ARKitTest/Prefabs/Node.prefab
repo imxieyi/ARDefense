@@ -113,4 +113,5 @@ MonoBehaviour:
   nodeUI: {fileID: 1751324797584482, guid: 1909adf3b0c704044ac16fd897028bf9, type: 2}
   buildEffect: {fileID: 1794485266898984, guid: c3e1c7c3c84f94617af09f1958909657,
     type: 2}
+  sellEffect: {fileID: 1533081740082426, guid: b15a7a09ba9a242fc84391c1a1cad1c2, type: 2}
   turret: {fileID: 0}

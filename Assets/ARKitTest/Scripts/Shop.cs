@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour {
+
+    public float sellDiscount = 0.6f;
     
     [Header("Turrets")]
 
@@ -59,6 +61,7 @@ public class Shop : MonoBehaviour {
 
     public void ShowActionButtons(TurretType type, Turret turret) {
         sellItem.SetActive(true);
+        sellItem.GetComponentInChildren<Text>().text = "$" + turret.GetSellPrice();
         var cost = turret.GetUpgradeCost();
         upgradeItem.SetActive(true);
         if (cost > 0) {
@@ -99,6 +102,10 @@ public class Shop : MonoBehaviour {
 
     public void UpgradeTurret() {
         buildManager.UpgradeTurret();
+    }
+
+    public void SellTurret() {
+        buildManager.SellTurret();
     }
 
 }

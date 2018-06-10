@@ -9,6 +9,7 @@ public class Node : MonoBehaviour {
 
     public GameObject nodeUI;
     public GameObject buildEffect;
+    public GameObject sellEffect;
 
 	Color defaultColor;
 	Renderer rend;
@@ -38,8 +39,8 @@ public class Node : MonoBehaviour {
 		TouchManager.selectedNode = gameObject;
 		rend.material.color = hightlightColor;
         if (turret) {
-            GameObject nodeUIObj = Instantiate(nodeUI, turret.transform.position + new Vector3(0, 2.5f * GameBase.scale), Quaternion.identity, GameBase.trans);
             var t = turret.GetComponent<Turret>();
+            GameObject nodeUIObj = Instantiate(nodeUI, turret.transform.position + new Vector3(0, 2.5f * t.transform.localScale.x * GameBase.scale), Quaternion.identity, GameBase.trans);
             t.nodeUI = nodeUIObj.GetComponent<NodeUI>();
             Shop.instance.ShowActionButtons(t.type, t);
         } else {
@@ -90,6 +91,21 @@ public class Node : MonoBehaviour {
 
             Shop.instance.ShowActionButtons(t.type, t);
         }
+    }
+
+    public void SellTurret() {
+        if (!turret) {
+            return;
+        }
+
+        PlayerStats.Money += turret.GetComponent<Turret>().GetSellPrice();
+
+        GameObject effect = Instantiate(sellEffect, TouchManager.selectedNode.GetComponent<Node>().GetBuildPosition(), Quaternion.identity, GameBase.trans);
+        Destroy(effect, 5f);
+
+        Cancel();
+
+        Destroy(turret);
     }
 
 	public void Cancel() {

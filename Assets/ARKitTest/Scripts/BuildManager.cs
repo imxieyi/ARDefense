@@ -26,4 +26,10 @@ public class BuildManager : MonoBehaviour {
         }
     }
 
+    public void SellTurret() {
+        if (TouchManager.selectedNode) {
+            TouchManager.selectedNode.GetComponent<Node>().SellTurret();
+        }
+    }
+
 }

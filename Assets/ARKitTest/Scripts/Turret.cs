@@ -47,6 +47,7 @@ public class Turret : MonoBehaviour {
     int damage;
     float realRange;
     int level = 0;
+    float sumValue = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -136,18 +137,28 @@ public class Turret : MonoBehaviour {
         return blueprint.levels[level].cost;
     }
 
+    public int GetSellPrice() {
+        return (int)Mathf.Round(sumValue * Shop.instance.sellDiscount);
+    }
+
     public void UpgradeTurret() {
         var l = blueprint.levels[level];
+        sumValue += l.cost;
         level++;
         realRange = l.range;
         range = realRange * GameBase.scale;
         if (useLaser) {
             damageOverTime = l.damage;
+            lineRenderer.startWidth = lineRenderer.endWidth = 0.3f * l.scale * GameBase.scale;
         } else {
             var bullet = bulletPrefab.GetComponent<Bullet>();
             bullet.damage = l.damage;
             damage = l.damage;
             fireRate = l.speed;
+        }
+        transform.localScale = new Vector3(l.scale, l.scale, l.scale);
+        if (nodeUI) {
+            nodeUI.transform.position = transform.position + new Vector3(0, 2.5f * l.scale * GameBase.scale);
         }
     }
 
