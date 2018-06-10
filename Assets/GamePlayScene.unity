@@ -5054,7 +5054,7 @@ MonoBehaviour:
   laserBeamer:
     prefab: {fileID: 1571573040011282, guid: 03aaa9f5c3c204d5ca7e63b0e69d0b69, type: 2}
     levels:
-    - cost: 150
+    - cost: 350
       damage: 30
       speed: 0
       range: 20
@@ -11460,11 +11460,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnBase: {fileID: 946007139}
-  enemyPrefab: {fileID: 4909352029167380, guid: 77c896a4499304531a892f61eafcb6c7,
-    type: 2}
   spawnPoint: {fileID: 1122991399}
+  waves:
+  - enemy: {fileID: 1737856228867958, guid: 77c896a4499304531a892f61eafcb6c7, type: 2}
+    count: 2
+    rate: 1
+  - enemy: {fileID: 1737856228867958, guid: 77c896a4499304531a892f61eafcb6c7, type: 2}
+    count: 3
+    rate: 2
+  - enemy: {fileID: 1737856228867958, guid: 77c896a4499304531a892f61eafcb6c7, type: 2}
+    count: 5
+    rate: 2
+  - enemy: {fileID: 1737856228867958, guid: 7149363e6702940f9bff4feabc9993a6, type: 2}
+    count: 3
+    rate: 1
+  - enemy: {fileID: 1737856228867958, guid: b71f3c8aa0d904ed3ad58d596516d266, type: 2}
+    count: 10
+    rate: 3
   waveCountdownText: {fileID: 77698750}
-  timeBetweenWaves: 5
+  timeBetweenWaves: 3
 --- !u!114 &1297361703
 MonoBehaviour:
   m_ObjectHideFlags: 0

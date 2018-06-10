@@ -24,7 +24,7 @@ public class Node : MonoBehaviour {
 	}
 
 	void OnTouch() {
-		Debug.Log("Touched at " + name);
+		//Debug.Log("Touched at " + name);
 		if (TouchManager.selectedNode == gameObject) {
 			//Cancel();
 			return;

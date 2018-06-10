@@ -25,7 +25,7 @@ public class TouchManager : MonoBehaviour {
 		List<Touch> touches = InputHelper.GetTouches();
         if (touches.Count > 0) {
             if (EventSystem.current.IsPointerOverGameObject(touches[0].fingerId)) {
-                Debug.Log("gg");
+                //Debug.Log("gg");
                 ignore = true;
                 return;
             }

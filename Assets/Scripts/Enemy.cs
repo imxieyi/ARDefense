@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour {
     public Image healthBar;
     public Transform healthBarBase;
 
+    [HideInInspector]
+    public bool died = false;
+
     void Start() {
         health = startHealth;
         speed = startSpeed;
@@ -41,10 +44,16 @@ public class Enemy : MonoBehaviour {
     }
 
     void Die() {
+        if (died) {
+            return;
+        }
+        died = true;
         PlayerStats.Money += reward;
 
         GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity, GameBase.trans);
         Destroy(effect, 5);
+
+        WaveSpawner.EnemiesAlive--;
 
         Destroy(gameObject);
     }
