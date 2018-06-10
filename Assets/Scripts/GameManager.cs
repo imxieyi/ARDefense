@@ -7,9 +7,16 @@ public class GameManager : MonoBehaviour {
     bool gameEnded = false;
 
     public GameObject gameOverUI;
+    public GameObject gameWin;
 
-	// Update is called once per frame
-	void Update () {
+    public static GameManager instance;
+
+    void Start() {
+        instance = this;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (gameEnded) {
             return;
         }
@@ -18,7 +25,12 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    public void WinGame() {
+        gameWin.SetActive(true);
+    }
+
     void EndGame() {
+        Time.timeScale = 0f;
         gameEnded = true;
         gameOverUI.SetActive(true);
     }

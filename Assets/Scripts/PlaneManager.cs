@@ -15,6 +15,7 @@ public class PlaneManager : MonoBehaviour {
     
     // Use this for initialization
     void Start() {
+        Time.timeScale = 1f;
         if (enableARKit) {
             gameBase = GameObject.Find("Game Base");
             gameBase.SetActive(false);
