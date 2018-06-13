@@ -5,6 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Wave {
 
+    public SubWave[] subWaves;
+
+}
+
+[System.Serializable]
+public class SubWave {
+
     public GameObject enemy;
     public int count;
     public float rate;

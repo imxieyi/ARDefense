@@ -17,6 +17,7 @@ public class WaveSpawner : MonoBehaviour {
 	public float timeBetweenWaves = 5f;
 	float countdown = 2f;
 	int waveIndex = 0;
+    int subWaveIndex = 0;
 
     bool spawning = false;
 
@@ -31,7 +32,7 @@ public class WaveSpawner : MonoBehaviour {
 
         if (countdown <= 0f) {
             spawning = true;
-            waveCountdownText.text = "WAVE " + (waveIndex + 1);
+            waveCountdownText.text = "WAVE " + (waveIndex + 1) + "/" + waves.Length;
 			StartCoroutine(SpawnWave());
 			countdown = timeBetweenWaves;
 		}
@@ -50,10 +51,12 @@ public class WaveSpawner : MonoBehaviour {
 	IEnumerator SpawnWave() {
         PlayerStats.Waves++;
         Wave wave = waves[waveIndex];
-        for (int i = 0; i < wave.count; i++) {
-            Instantiate(wave.enemy, spawnPoint.position, spawnPoint.rotation, spawnBase);
-            EnemiesAlive++;
-            yield return new WaitForSeconds(1f / wave.rate);
+        foreach (var sw in wave.subWaves) {
+            for (int i = 0; i < sw.count; i++) {
+                Instantiate(sw.enemy, spawnPoint.position, spawnPoint.rotation, spawnBase);
+                EnemiesAlive++;
+                yield return new WaitForSeconds(1f / sw.rate);
+            }
         }
         waveIndex++;
         if (waveIndex < waves.Length) {
