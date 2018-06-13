@@ -3434,14 +3434,24 @@ MonoBehaviour:
       speed: 0.25
       range: 30
       scale: 1
+    - cost: 300
+      damage: 60
+      speed: 0.3
+      range: 50
+      scale: 1.5
   laserBeamer:
     prefab: {fileID: 1571573040011282, guid: 03aaa9f5c3c204d5ca7e63b0e69d0b69, type: 2}
     levels:
-    - cost: 350
+    - cost: 400
       damage: 30
       speed: 0
       range: 20
       scale: 1
+    - cost: 600
+      damage: 40
+      speed: 0
+      range: 25
+      scale: 1.5
   sellItem: {fileID: 2030232923}
   upgradeItem: {fileID: 1685081164}
   laserBeamerItem: {fileID: 499978164}
@@ -8162,6 +8172,86 @@ MonoBehaviour:
     - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
       count: 2
       rate: 1
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
+  - subWaves:
+    - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
+      count: 2
+      rate: 1
+    - enemy: {fileID: 1398405203114226, guid: d003036e19a2f47d39b4443c318bc02f, type: 2}
+      count: 3
+      rate: 1
+    - enemy: {fileID: 1639619781278854, guid: 843a548b51d31408ea27be1873aa3efb, type: 2}
+      count: 5
+      rate: 2
   - subWaves:
     - enemy: {fileID: 1935383052676226, guid: 1683c7c75b32d423c8acbad2d68292ec, type: 2}
       count: 2
