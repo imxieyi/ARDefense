@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
-    
-	public static int Money;
-	public int startMoney = 400;
+	public static float Money;
+    	public static int Lives;
+    	public int startLives = 20;
 
-    public static int Lives;
-    public int startLives = 20;
-
-    public static int Waves;
-
+    	public static int Waves;
+	
+	[Header("Money")]
+	public float startMoney = 400;
+	public float moneyIncreaseRate = 10;
 	void Start() {
 		Money = startMoney;
-        Lives = startLives;
-        Waves = 0;
+		Lives = startLives;
+		Waves = 0;
 	}
-
+	
+	// update player status per frame
+    	void Update()
+    	{
+		// update money over time
+		PlayerStats.Money += moneyIncreaseRate * Time.deltaTime;
+    	}
 }
