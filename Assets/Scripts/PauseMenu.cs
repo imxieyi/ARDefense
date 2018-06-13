@@ -28,11 +28,12 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Retry() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Menu() {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 

@@ -40,6 +40,7 @@ public class PlaneManager : MonoBehaviour {
 			Destroy(mainCamera.gameObject.GetComponent<UnityARVideo>());
 			Destroy(mainCamera.gameObject.GetComponent<UnityARCameraNearFar>());
 			mainCamera.clearFlags = CameraClearFlags.SolidColor;
+            pauseButton.SetActive(true);
 		}
 	}
 

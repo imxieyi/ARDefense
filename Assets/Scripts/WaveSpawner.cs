@@ -21,7 +21,11 @@ public class WaveSpawner : MonoBehaviour {
 
     bool spawning = false;
 
-	void Update() {
+    void Start() {
+        EnemiesAlive = 0;
+    }
+
+    void Update() {
         if (EnemiesAlive > 0) {
             return;
         }

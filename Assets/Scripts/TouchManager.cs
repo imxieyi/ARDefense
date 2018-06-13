@@ -12,6 +12,7 @@ public class TouchManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Input.simulateMouseWithTouches = true;
+        selectedNode = null;
 	}
 
     bool ignore = false;
