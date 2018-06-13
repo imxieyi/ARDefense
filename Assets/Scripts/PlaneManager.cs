@@ -14,6 +14,8 @@ public class PlaneManager : MonoBehaviour {
     public bool enableARKit;
     public Transform coinBox;
     public GameObject pauseButton;
+    [HideInInspector]
+    public float baseRotation = float.NaN;
     
     // Use this for initialization
     void Start() {
@@ -55,7 +57,8 @@ public class PlaneManager : MonoBehaviour {
         }
         Vector3 dir = oldCameraTrans.position - m_HitTransform.position;
         dir.y = 0;
-        gameBase.transform.rotation = Quaternion.LookRotation(-dir);
+        //gameBase.transform.rotation = Quaternion.LookRotation(-dir);
+        baseRotation = Quaternion.LookRotation(-dir).y;
 		planePlaced = true;
         // Place Coin Box
         dir = m_HitTransform.position - oldCameraTrans.position;
