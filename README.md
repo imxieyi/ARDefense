@@ -1,4 +1,6 @@
-# ARDefense
+# Computer Graphics Project - ARDefense
+A tower defense game featured ARKit technology.
+
 ## Requirements
 - macOS 10.13+
 - XCode 9+
@@ -18,5 +20,9 @@
 ## Credits
 - [How to Make a Tower Defense Game](https://www.youtube.com/watch?v=beuoNuK2tbk&list=PLPV2KyIb3jR4u5jX8za5iU1cqnQPmbzG0)
 - [ARKit Plugin for Unity](https://assetstore.unity.com/packages/essentials/tutorial-projects/unity-arkit-plugin-92515)
+- [Free Low Polygon_Animal](https://assetstore.unity.com/packages/3d/characters/animals/free-low-polygon-animal-110679)
+- [Fantasy landscape](https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573)
+- [High Quality Bricks & Walls](https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573)
+- [Sand Brick Texture](https://assetstore.unity.com/packages/2d/textures-materials/brick/sand-brick-texture-115071)
 - [Iconfont](http://www.iconfont.cn/plus)
 - [Sketchfab](https://sketchfab.com/feed)
